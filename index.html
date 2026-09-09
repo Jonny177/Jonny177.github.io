@@ -20,7 +20,7 @@
       --text: #555555;
       --muted: #777777;
       --light: #aaaaaa;
-      --content-width: 1400px;
+      --content-width: 1180px;
       --font-body: "Montserrat", Arial, Helvetica, sans-serif;
       --font-name: "Josefin Sans", "Montserrat", Arial, sans-serif;
     }
@@ -57,29 +57,19 @@
        ========================================================= */
 
     .header-spacer {
-      height: 116px;
+      height: 102px;
       transition: height 0.42s cubic-bezier(.22, 1, .36, 1);
     }
-
-    body.inner-view .header-spacer {
-      height: 150px;
-    }
-
-    .site-header {
+.site-header {
       position: fixed;
       inset: 0 0 auto 0;
       z-index: 50;
       background: rgba(255, 255, 255, 0.985);
-      padding-top: 32px;
+      padding-top: 34px;
       transform: translateY(0);
       transition: transform 0.42s cubic-bezier(.22, 1, .36, 1);
     }
-
-    body.inner-view .site-header {
-      transform: translateY(30px);
-    }
-
-    .nav {
+.nav {
       width: 100%;
       display: flex;
       justify-content: center;
@@ -93,25 +83,25 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 26px;
+      gap: 16px;
     }
 
     .nav-link {
       display: inline-flex;
       justify-content: center;
       align-items: center;
-      min-width: 126px;
-      height: 55px;
-      padding: 0 28px;
-      border: 1px solid #d6d6d6;
-      border-radius: 5px;
+      min-width: 102px;
+      height: 40px;
+      padding: 0 20px;
+      border: 1px solid #dedede;
+      border-radius: 2px;
       background: #ffffff;
       color: #3f3f3f;
       text-decoration: none;
       text-transform: uppercase;
-      letter-spacing: 0.29rem;
+      letter-spacing: 0.20rem;
       font-family: var(--font-body);
-      font-size: 14px;
+      font-size: 10.5px;
       line-height: 1;
       font-weight: 600;
       cursor: pointer;
@@ -120,11 +110,11 @@
     }
 
     .nav-list li:nth-child(2) .nav-link {
-      min-width: 180px;
+      min-width: 128px;
     }
 
     .nav-list li:nth-child(3) .nav-link {
-      min-width: 176px;
+      min-width: 124px;
     }
 
     .nav-link:hover,
@@ -167,7 +157,7 @@
 
     .page {
       display: none;
-      width: min(var(--content-width), calc(100% - 160px));
+      width: min(var(--content-width), calc(100% - 96px));
       margin: 0 auto;
     }
 
@@ -192,9 +182,9 @@
        ========================================================= */
 
     .home-page {
-      min-height: calc(100vh - 116px);
-      padding: 0 0 72px;
-      align-items: flex-start;
+      min-height: calc(100vh - 102px);
+      padding: 0 0 58px;
+      align-items: center;
     }
 
     .home-page.is-active {
@@ -202,40 +192,41 @@
     }
 
     .hero {
-      width: 100%;
+      width: min(1080px, 100%);
+      margin: 0 auto;
       display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-      gap: 92px;
+      grid-template-columns: minmax(0, 1fr) 430px;
+      gap: 78px;
       align-items: center;
-      padding-top: clamp(76px, 8vh, 102px);
-      transform: none;
+      padding-top: 20px;
+      transform: translateY(-18px);
     }
 
     .hero-copy {
-      max-width: 560px;
-      transform: translateY(-14px);
+      max-width: 380px;
+      transform: none;
     }
 
     .hero-title {
-      margin: 0 0 31px;
+      margin: 0 0 30px;
       color: var(--heading);
       font-family: var(--font-name);
-      font-size: clamp(45px, 3.7vw, 54px);
+      font-size: clamp(44px, 3.5vw, 52px);
       font-weight: 700;
       line-height: 1.1;
-      letter-spacing: 0.46rem;
+      letter-spacing: 0.42rem;
       text-transform: uppercase;
       white-space: nowrap;
     }
 
     .hero-copy p {
-      max-width: 520px;
+      max-width: 445px;
       margin: 0 0 18px;
       color: #545454;
       font-family: var(--font-body);
-      font-size: 18px;
+      font-size: 15px;
       font-weight: 300;
-      line-height: 1.72;
+      line-height: 1.82;
       letter-spacing: 0.018rem;
     }
 
@@ -268,11 +259,11 @@
       display: flex;
       justify-content: flex-end;
       align-items: center;
-      transform: translateX(10px);
+      transform: none;
     }
 
     .hero-photo-frame {
-      width: min(100%, 505px);
+      width: min(100%, 430px);
       aspect-ratio: 1 / 1;
       overflow: hidden;
       background: #ffffff;
@@ -290,23 +281,23 @@
        ========================================================= */
 
     .inner-page {
-      padding: 22px 0 82px;
+      padding: 46px 0 82px;
     }
 
     .page-heading {
-      margin: 0 0 56px;
+      margin: 0 0 48px;
       color: #4a4a4a;
       text-align: center;
-      font-size: 28px;
-      line-height: 1.1;
+      font-size: 10px;
+      line-height: 1;
       font-weight: 600;
-      letter-spacing: 0;
+      letter-spacing: 0.26rem;
       text-transform: uppercase;
     }
 
     .wide-image {
-      width: min(1120px, 100%);
-      margin: 0 auto 72px;
+      width: min(900px, 100%);
+      margin: 0 auto 60px;
       aspect-ratio: 3.15 / 1;
       overflow: hidden;
       background: #eeeeee;
@@ -323,15 +314,15 @@
       margin: 0 0 38px;
       color: #555555;
       text-align: center;
-      font-size: 18px;
+      font-size: 12.5px;
       line-height: 1;
       font-weight: 600;
-      letter-spacing: 0.30rem;
+      letter-spacing: 0.27rem;
       text-transform: uppercase;
     }
 
     .content-column {
-      width: min(1040px, 100%);
+      width: min(850px, 100%);
       margin: 0 auto;
     }
 
@@ -342,7 +333,7 @@
     .publication-title {
       margin: 0 0 7px;
       color: #333333;
-      font-size: 18px;
+      font-size: 14.5px;
       line-height: 1.55;
       font-weight: 500;
     }
@@ -350,7 +341,7 @@
     .publication-meta {
       margin: 0 0 16px;
       color: #777777;
-      font-size: 16.5px;
+      font-size: 13.5px;
       line-height: 1.7;
       font-weight: 300;
       font-style: italic;
@@ -359,7 +350,7 @@
     .publication-abstract {
       margin: 0 0 20px;
       color: #5c5c5c;
-      font-size: 16.5px;
+      font-size: 13.5px;
       line-height: 1.85;
       font-weight: 300;
     }
@@ -401,8 +392,8 @@
       padding-left: 18px;
       margin-bottom: 13px;
       color: #5d5d5d;
-      font-size: 18px;
-      line-height: 1.72;
+      font-size: 13.5px;
+      line-height: 1.82;
       font-weight: 300;
     }
 
@@ -419,19 +410,19 @@
        ========================================================= */
 
     .teaching-layout {
-      width: min(1400px, 100%);
+      width: min(900px, 100%);
       margin: 0 auto;
       display: grid;
-      grid-template-columns: minmax(0, 1fr) 500px;
-      gap: 92px;
+      grid-template-columns: minmax(0, 1.08fr) minmax(330px, 0.92fr);
+      gap: 66px;
       align-items: start;
     }
 
     .teaching-copy p {
-      max-width: 820px;
-      margin: 34px 0 22px;
+      max-width: 470px;
+      margin: 26px 0 22px;
       color: #555555;
-      font-size: 19px;
+      font-size: 14px;
       line-height: 1.72;
       font-weight: 300;
       letter-spacing: 0.018rem;
@@ -446,7 +437,7 @@
 
     .teaching-photo {
       width: 500px;
-      height: 444px;
+      height: 338px;
       overflow: hidden;
       background: #eeeeee;
     }
@@ -466,7 +457,7 @@
     .site-footer {
       width: min(var(--content-width), calc(100% - 64px));
       margin: 0 auto;
-      padding: 20px 0 38px;
+      padding: 14px 0 32px;
       color: #999999;
       text-align: center;
       font-size: 14px;
@@ -505,16 +496,7 @@
       .site-header {
         padding-top: 14px;
       }
-
-      body.inner-view .site-header {
-        transform: translateY(10px);
-      }
-
-      body.inner-view .header-spacer {
-        height: 78px;
-      }
-
-      .nav {
+.nav {
         overflow-x: auto;
         justify-content: flex-start;
         scrollbar-width: none;
@@ -533,10 +515,10 @@
 
       .nav-link {
         min-width: 0;
-        height: 42px;
+        height: 36px;
         font-size: 10px;
         letter-spacing: 0.12rem;
-        padding: 0 16px;
+        padding: 0 12px;
       }
 
       .nav-list li:nth-child(2) .nav-link,
@@ -606,7 +588,7 @@
       }
 
       .teaching-photo {
-        width: min(100%, 500px);
+        width: min(100%, 380px);
         height: auto;
         aspect-ratio: 1.12 / 1;
       }
@@ -665,9 +647,12 @@
 
           <p>
             I am Lekai Wang, a PhD student in Mathematics at Nanjing University.
-            My research interests lie in nonlinear partial differential equations
-            and geometric analysis, with particular emphasis on parabolic equations,
-            unique continuation, and the geometry of nodal and zero sets.
+            My research interests are in nonlinear partial differential equations
+            and geometric analysis.
+          </p>
+          <p>
+            I am particularly interested in parabolic equations, unique continuation,
+            and the geometry of nodal and critical sets.
           </p>
 
           <div class="hero-email">
@@ -738,12 +723,12 @@
           <h3 class="section-label">Work in Progress</h3>
           <ul>
             <li>
-              Global geometry and endpoint behavior of nodal curves for
-              one-dimensional variable-coefficient parabolic equations.
+              A project on nodal curves and critical points for one-dimensional
+              parabolic equations.
             </li>
             <li>
-              Unique continuation and geometric properties of nodal, zero,
-              and critical sets for elliptic and parabolic equations.
+              A project on unique continuation and backward uniqueness for
+              parabolic equations with rough coefficients.
             </li>
           </ul>
         </div>
@@ -759,14 +744,14 @@
       <div class="teaching-layout">
         <div class="teaching-copy">
           <p>
-            During my time at Nanjing University, I have served as a teaching
-            assistant for the following undergraduate course:
+            At Nanjing University, I have served as a teaching assistant for the
+            following undergraduate course:
           </p>
 
           <ul class="teaching-list">
             <li>
               <em>Mathematics and the Humanities</em>
-              (2025–2026; 2026–2027)
+              (2025–26, 2026–27)
             </li>
           </ul>
         </div>
