@@ -1,467 +1,739 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Julian Perilla – PhD Candidate at MIT</title>
-  <!-- 引入与原版一致的高级几何字体 -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Academic personal homepage" />
+  <title>YOUR NAME</title>
+
+  <!--
+    ============================
+    你之后最常改的地方
+    ============================
+    1. 搜索 YOUR NAME / YOUR EMAIL / YOUR ...
+    2. 首页照片：搜索 HOME PHOTO
+    3. Research 图片：搜索 RESEARCH PHOTO
+    4. Teaching 图片：搜索 TEACHING PHOTO
+    5. CV：把 cv.pdf 放在 index.html 同目录即可
+  -->
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
-  
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap"
+    rel="stylesheet"
+  >
+
   <style>
     :root {
-      --bg: #ffffff;
-      --text: #1a1a1a;
-      --subtext: #666666;
-      --border: #e0e0e0;
-      --heading-font: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
-      --body-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --page-bg: #ffffff;
+      --text: #171717;
+      --body-text: #6f6f6f;
+      --line: #dedede;
+      --line-dark: #bdbdbd;
+      --content-width: 1180px;
+      --font: "Montserrat", Arial, Helvetica, sans-serif;
     }
 
     * {
       box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
     }
 
     body {
-      background: var(--bg);
+      margin: 0;
+      background: var(--page-bg);
       color: var(--text);
-      font-family: var(--body-font);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
+      font-family: var(--font);
       -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
     }
 
-    /* 顶部导航栏 - 严格复刻细边框与大字距 */
-    header {
-      padding: 45px 0 20px 0;
-      display: flex;
-      justify-content: center;
-      width: 100%;
+    button,
+    a {
+      font: inherit;
     }
 
-    .nav-container {
-      display: flex;
-      gap: 18px;
-    }
-
-    .nav-btn {
-      display: inline-block;
-      padding: 10px 28px;
-      font-family: var(--heading-font);
-      font-size: 0.72rem;
-      font-weight: 500;
-      letter-spacing: 0.24em;
-      text-transform: uppercase;
-      text-decoration: none;
-      color: var(--text);
-      background: #ffffff;
-      border: 1px solid var(--border);
-      border-radius: 2px;
-      cursor: pointer;
-      transition: border-color 0.2s ease, color 0.2s ease;
-    }
-
-    .nav-btn:hover {
-      border-color: #888888;
-    }
-
-    .nav-btn.active {
-      border-color: #222222;
-      font-weight: 600;
-    }
-
-    /* 主内容区 - 宽屏居中，解决高分屏缩成小块的问题 */
-    main {
-      flex: 1;
-      max-width: 1120px;
-      width: 100%;
-      margin: 0 auto;
-      padding: 30px 40px 60px 40px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .tab-content {
-      display: none;
-      width: 100%;
-    }
-
-    .tab-content.active {
+    img {
       display: block;
+      max-width: 100%;
     }
 
-    /* ================= HOME 页面排版 ================= */
-    .home-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 70px;
+    /* =========================================================
+       HEADER / NAV
+       ========================================================= */
+
+    .site-header {
+      width: min(var(--content-width), calc(100% - 64px));
+      margin: 0 auto;
+      padding-top: 34px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      width: max-content;
+    }
+
+    .nav-link {
+      appearance: none;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: #232323;
+      min-width: 96px;
+      height: 39px;
+      padding: 0 18px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.24em;
+      font-size: 10px;
+      font-weight: 500;
+      cursor: pointer;
+      transition:
+        border-color 160ms ease,
+        color 160ms ease,
+        background-color 160ms ease;
+    }
+
+    .nav-link:hover,
+    .nav-link.is-active {
+      border-color: #9e9e9e;
+      color: #000;
+    }
+
+    /* =========================================================
+       PAGE SHELL
+       ========================================================= */
+
+    .page {
+      display: none;
+      width: min(var(--content-width), calc(100% - 64px));
+      margin: 0 auto;
+    }
+
+    .page.is-active {
+      display: block;
+      animation: pageIn 260ms ease;
+    }
+
+    @keyframes pageIn {
+      from {
+        opacity: 0;
+        transform: translateY(4px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* =========================================================
+       HOME
+       ========================================================= */
+
+    .home-page {
+      min-height: calc(100vh - 74px);
+      padding: 20px 0 54px;
+      display: none;
       align-items: center;
     }
 
-    /* 左侧文字区 */
-    .home-text {
-      max-width: 440px;
-      justify-self: end;
+    .home-page.is-active {
+      display: flex;
     }
 
-    .home-text h1 {
-      font-family: var(--heading-font);
-      font-size: 2.25rem;
-      font-weight: 700;
+    .hero {
+      width: 100%;
+      display: grid;
+      grid-template-columns: minmax(360px, 0.92fr) minmax(470px, 1.08fr);
+      gap: 74px;
+      align-items: center;
+    }
+
+    .hero-copy {
+      max-width: 490px;
+      padding-left: 18px;
+    }
+
+    .hero-title {
+      margin: 0 0 39px;
+      font-size: clamp(34px, 3.15vw, 51px);
+      line-height: 1.08;
+      font-weight: 500;
+      letter-spacing: 0.23em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .hero-copy p {
+      max-width: 440px;
+      margin: 0 0 20px;
+      color: var(--body-text);
+      font-size: 13px;
+      line-height: 1.85;
+      font-weight: 300;
+      letter-spacing: 0.005em;
+    }
+
+    .hero-email {
+      margin-top: 29px;
+    }
+
+    .mail-link {
+      width: 27px;
+      height: 27px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #595959;
+      text-decoration: none;
+      transition: color 160ms ease, transform 160ms ease;
+    }
+
+    .mail-link:hover {
+      color: #111;
+      transform: translateY(-1px);
+    }
+
+    .mail-link svg {
+      width: 22px;
+      height: 22px;
+    }
+
+    .hero-photo {
+      justify-self: end;
+      width: 100%;
+      max-width: 520px;
+    }
+
+    .hero-photo-frame {
+      width: 100%;
+      aspect-ratio: 0.79 / 1;
+      overflow: hidden;
+      background: #efefef;
+    }
+
+    .hero-photo-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+
+      /* HOME PHOTO
+         换成你自己的图片后，如果人物太偏上/偏下，在这里调：
+         object-position: 50% 40%;
+      */
+      object-position: 50% 50%;
+    }
+
+    /* =========================================================
+       INNER PAGES
+       ========================================================= */
+
+    .inner-page {
+      padding: 71px 0 86px;
+    }
+
+    .page-heading {
+      margin: 0 0 46px;
+      text-align: center;
+      font-size: 13px;
+      line-height: 1;
+      font-weight: 500;
       letter-spacing: 0.28em;
       text-transform: uppercase;
-      color: #111111;
-      margin-bottom: 34px;
-      line-height: 1.2;
     }
 
-    .home-text p {
-      font-size: 0.94rem;
-      color: var(--subtext);
-      line-height: 1.8;
-      margin-bottom: 22px;
-      font-weight: 300;
-    }
-
-    .email-icon {
-      display: inline-block;
-      margin-top: 10px;
-      color: #444444;
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-
-    .email-icon:hover {
-      color: #000000;
-    }
-
-    /* 右侧照片区 - 原版大画幅比例 */
-    .home-photo {
-      display: flex;
-      justify-content: flex-start;
-    }
-
-    .home-photo img {
-      width: 100%;
-      max-width: 430px;
-      height: 560px;
-      object-fit: cover;
-      display: block;
-    }
-
-    /* ================= RESEARCH 页面 ================= */
-    .page-title {
-      text-align: center;
-      font-family: var(--heading-font);
-      font-size: 0.92rem;
-      font-weight: 600;
-      letter-spacing: 0.26em;
-      text-transform: uppercase;
-      margin: 10px 0 40px 0;
-    }
-
-    .research-banner {
-      width: 100%;
-      max-width: 860px;
-      margin: 0 auto 50px auto;
-      height: 280px;
+    .wide-image {
+      width: min(875px, 100%);
+      margin: 0 auto 58px;
+      aspect-ratio: 3.18 / 1;
       overflow: hidden;
+      background: #ededed;
     }
 
-    .research-banner img {
+    .wide-image img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       filter: grayscale(100%);
-      display: block;
     }
 
-    .section-subtitle {
+    .section-label {
+      margin: 0 0 34px;
       text-align: center;
-      font-family: var(--heading-font);
-      font-size: 0.85rem;
-      font-weight: 600;
-      letter-spacing: 0.24em;
+      font-size: 12px;
+      line-height: 1;
+      font-weight: 500;
+      letter-spacing: 0.27em;
       text-transform: uppercase;
-      margin: 45px 0 30px 0;
     }
 
-    .pub-item {
-      max-width: 840px;
-      margin: 0 auto 50px auto;
-    }
-
-    .pub-title {
-      font-size: 0.96rem;
-      font-weight: 600;
-      margin-bottom: 5px;
-    }
-
-    .pub-journal {
-      font-size: 0.88rem;
-      color: var(--subtext);
-      font-style: italic;
-      margin-bottom: 14px;
-    }
-
-    .pub-abstract {
-      font-size: 0.88rem;
-      color: #444444;
-      line-height: 1.75;
-      text-align: justify;
-      margin-bottom: 16px;
-      font-weight: 300;
-    }
-
-    .pub-links {
-      display: flex;
-      gap: 12px;
-    }
-
-    .pub-btn {
-      display: inline-block;
-      padding: 7px 18px;
-      font-family: var(--heading-font);
-      font-size: 0.68rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      text-decoration: none;
-      color: #333333;
-      border: 1px solid var(--border);
-      border-radius: 2px;
-      transition: all 0.2s ease;
-    }
-
-    .pub-btn:hover {
-      border-color: #000;
-      color: #000;
-    }
-
-    .wip-list {
-      max-width: 840px;
-      margin: 20px auto 40px auto;
-      list-style: none;
-    }
-
-    .wip-list li {
-      font-size: 0.88rem;
-      color: var(--subtext);
-      margin-bottom: 10px;
-      line-height: 1.6;
-      font-weight: 300;
-    }
-
-    /* ================= TEACHING 页面 ================= */
-    .teaching-grid {
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 60px;
-      align-items: flex-start;
-      max-width: 880px;
+    .content-column {
+      width: min(835px, 100%);
       margin: 0 auto;
     }
 
-    .teaching-intro {
-      font-size: 0.92rem;
-      color: var(--subtext);
-      margin-bottom: 24px;
+    .publication {
+      padding: 0 0 43px;
+      margin: 0 0 43px;
+      border-bottom: 1px solid #ececec;
+    }
+
+    .publication:last-of-type {
+      margin-bottom: 51px;
+    }
+
+    .publication-title {
+      margin: 0 0 8px;
+      color: #222;
+      font-size: 14px;
+      line-height: 1.55;
+      font-weight: 500;
+    }
+
+    .publication-meta {
+      margin: 0 0 18px;
+      color: var(--body-text);
+      font-size: 12.5px;
+      line-height: 1.7;
+      font-style: italic;
       font-weight: 300;
     }
 
+    .publication-abstract {
+      margin: 0 0 21px;
+      color: #626262;
+      font-size: 12.5px;
+      line-height: 1.88;
+      font-weight: 300;
+    }
+
+    .small-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 11px;
+    }
+
+    .small-button {
+      min-height: 34px;
+      padding: 0 16px;
+      border: 1px solid var(--line);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #333;
+      text-decoration: none;
+      text-transform: uppercase;
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      transition: border-color 160ms ease, color 160ms ease;
+    }
+
+    .small-button:hover {
+      border-color: #9c9c9c;
+      color: #000;
+    }
+
+    .wip {
+      margin-top: 50px;
+    }
+
+    .wip ul,
     .teaching-list {
+      margin: 0;
+      padding: 0;
       list-style: none;
     }
 
-    .teaching-list > li {
-      font-size: 0.9rem;
-      color: #333333;
-      margin-bottom: 20px;
-      line-height: 1.6;
+    .wip li,
+    .teaching-list li {
+      position: relative;
+      padding-left: 15px;
+      margin-bottom: 12px;
+      color: var(--body-text);
+      font-size: 12.5px;
+      line-height: 1.75;
       font-weight: 300;
     }
 
-    .guest-lecture {
-      padding-left: 18px;
-      color: #777777;
-      font-size: 0.86rem;
-      margin-top: 4px;
+    .wip li::before,
+    .teaching-list li::before {
+      content: "–";
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+
+    /* =========================================================
+       TEACHING
+       ========================================================= */
+
+    .teaching-layout {
+      width: min(890px, 100%);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.08fr 0.92fr;
+      gap: 68px;
+      align-items: start;
+    }
+
+    .teaching-copy p {
+      margin: 0 0 29px;
+      color: var(--body-text);
+      font-size: 12.5px;
+      line-height: 1.82;
+      font-weight: 300;
+    }
+
+    .guest {
+      display: block;
+      margin-top: 5px;
+      color: #8b8b8b;
+      font-size: 11.5px;
+    }
+
+    .teaching-photo {
+      aspect-ratio: 0.76 / 1;
+      overflow: hidden;
+      background: #ededed;
     }
 
     .teaching-photo img {
       width: 100%;
-      height: 400px;
+      height: 100%;
       object-fit: cover;
-      display: block;
       filter: grayscale(100%);
     }
 
-    /* 页脚 */
-    footer {
+    /* =========================================================
+       FOOTER
+       ========================================================= */
+
+    .site-footer {
+      width: min(var(--content-width), calc(100% - 64px));
+      margin: 0 auto;
+      padding: 0 0 35px;
       text-align: center;
-      padding: 40px 20px;
-      font-size: 0.72rem;
-      color: #999999;
-      letter-spacing: 0.05em;
+      color: #a0a0a0;
+      font-size: 9.5px;
+      line-height: 1.6;
+      letter-spacing: 0.08em;
     }
 
-    /* 移动端响应式 */
-    @media (max-width: 850px) {
-      main {
-        padding: 20px 24px;
+    /* =========================================================
+       RESPONSIVE
+       ========================================================= */
+
+    @media (max-width: 980px) {
+      .hero {
+        grid-template-columns: 1fr 1fr;
+        gap: 42px;
       }
-      .home-grid,
-      .teaching-grid {
+
+      .hero-title {
+        font-size: 34px;
+        letter-spacing: 0.18em;
+      }
+
+      .hero-copy {
+        padding-left: 0;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .site-header,
+      .page,
+      .site-footer {
+        width: min(100% - 36px, var(--content-width));
+      }
+
+      .site-header {
+        padding-top: 22px;
+      }
+
+      .nav {
+        width: 100%;
+        gap: 8px;
+        overflow-x: auto;
+        padding-bottom: 4px;
+        scrollbar-width: none;
+      }
+
+      .nav::-webkit-scrollbar {
+        display: none;
+      }
+
+      .nav-link {
+        min-width: auto;
+        height: 36px;
+        padding: 0 13px;
+        font-size: 9px;
+        letter-spacing: 0.18em;
+        flex: 0 0 auto;
+      }
+
+      .home-page {
+        min-height: auto;
+        padding: 58px 0 75px;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+        gap: 42px;
+      }
+
+      .hero-copy {
+        max-width: 100%;
+      }
+
+      .hero-title {
+        white-space: normal;
+        font-size: 36px;
+      }
+
+      .hero-photo {
+        justify-self: start;
+        max-width: 520px;
+      }
+
+      .inner-page {
+        padding-top: 58px;
+      }
+
+      .teaching-layout {
         grid-template-columns: 1fr;
         gap: 40px;
       }
-      .home-text {
-        max-width: 100%;
-        justify-self: start;
+
+      .teaching-photo {
+        max-width: 440px;
       }
-      .home-photo {
-        justify-content: center;
+    }
+
+    @media (max-width: 430px) {
+      .hero-title {
+        font-size: 30px;
+        letter-spacing: 0.15em;
       }
-      .home-photo img {
-        max-width: 320px;
-        height: 420px;
-      }
-      .home-text h1 {
-        font-size: 1.8rem;
-        letter-spacing: 0.2em;
+
+      .hero-copy p,
+      .publication-abstract,
+      .publication-meta,
+      .wip li,
+      .teaching-copy p,
+      .teaching-list li {
+        font-size: 12px;
       }
     }
   </style>
 </head>
-<body>
 
-  <!-- 顶部导航 -->
-  <header>
-    <div class="nav-container">
-      <button class="nav-btn active" onclick="openTab(event, 'home')">HOME</button>
-      <button class="nav-btn" onclick="openTab(event, 'research')">RESEARCH</button>
-      <button class="nav-btn" onclick="openTab(event, 'teaching')">TEACHING</button>
-    </div>
+<body>
+  <header class="site-header">
+    <nav class="nav" aria-label="Primary navigation">
+      <button class="nav-link is-active" data-page="home" type="button">Home</button>
+      <button class="nav-link" data-page="research" type="button">Research</button>
+      <button class="nav-link" data-page="teaching" type="button">Teaching</button>
+
+      <!-- 把 cv.pdf 放在 index.html 同一目录；或者把 href 改成你的在线 CV 链接 -->
+      <a class="nav-link" href="cv.pdf" target="_blank" rel="noopener">CV</a>
+    </nav>
   </header>
 
   <main>
-    <!-- 1. HOME 标签页 -->
-    <section id="home" class="tab-content active">
-      <div class="home-grid">
-        <div class="home-text">
-          <h1>JULIAN PERILLA</h1>
+    <!-- =====================================================
+         HOME
+         ===================================================== -->
+    <section id="home" class="page home-page is-active">
+      <div class="hero">
+        <div class="hero-copy">
+          <h1 class="hero-title">YOUR NAME</h1>
+
           <p>
-            I am Julian Perilla, a PhD candidate in the Department of Linguistics and Philosophy at MIT. My work is primarily in moral and political philosophy.
+            YOUR SHORT ACADEMIC INTRODUCTION. For example: I am a PhD candidate
+            in the Department of Mathematics at YOUR UNIVERSITY. My research
+            interests include YOUR RESEARCH AREAS.
           </p>
+
           <p>
-            Before coming to MIT, I studied philosophy at New York University.
+            Add one more short paragraph here for your previous education,
+            current position, research group, or other information.
           </p>
-          
-          <a href="mailto:email@mit.edu" class="email-icon" title="Email">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-            </svg>
-          </a>
+
+          <div class="hero-email">
+            <a
+              class="mail-link"
+              href="mailto:YOUR_EMAIL@UNIVERSITY.EDU"
+              aria-label="Email"
+              title="Email"
+            >
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path
+                  d="M3.75 5.75h16.5v12.5H3.75V5.75Z"
+                  stroke="currentColor"
+                  stroke-width="1.35"
+                />
+                <path
+                  d="m4.4 6.45 7.6 6.1 7.6-6.1"
+                  stroke="currentColor"
+                  stroke-width="1.35"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </a>
+          </div>
         </div>
 
-        <div class="home-photo">
-          <!-- 采用大尺寸 portrait 纵向比例 -->
-          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=900&q=80" alt="Julian Perilla">
+        <div class="hero-photo">
+          <div class="hero-photo-frame">
+            <!-- HOME PHOTO：把 src 换成你自己的照片文件，例如 images/me.jpg -->
+            <img
+              src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=1200&q=88"
+              alt="Portrait"
+            />
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- 2. RESEARCH 标签页 -->
-    <section id="research" class="tab-content">
-      <div class="page-title">RESEARCH</div>
+    <!-- =====================================================
+         RESEARCH
+         ===================================================== -->
+    <section id="research" class="page inner-page">
+      <h2 class="page-heading">Research</h2>
 
-      <div class="research-banner">
-        <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1200&q=80" alt="Blackboard">
+      <div class="wide-image">
+        <!-- RESEARCH PHOTO -->
+        <img
+          src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&w=1600&q=85"
+          alt="Research"
+        />
       </div>
 
-      <div class="section-subtitle">PUBLICATIONS</div>
+      <h3 class="section-label">Publications</h3>
 
-      <div class="pub-item">
-        <div class="pub-title">Rousseau's Freedom as Recognition</div>
-        <div class="pub-journal">European Journal of Philosophy. Forthcoming.</div>
-        <div class="pub-abstract">
-          Abstract: To yearn for freedom is to want to be seen by others as someone. Rousseau, I believe, held such a conception of freedom, alongside his intricate theory of human passions. This essay examines how freedom relates to such passions, and in particular, to the Rousseauian notion of amour-propre. Importantly, the aim here is both interpretive and positive. The essay seeks to locate Rousseau within the old republican tradition in a manner that parts ways with most contemporary readings of Rousseau. But, in doing so, it argues that republican freedom essentially involves a particular status and the recognition of such status by others. On this Rousseauian view, one is free to the extent that others see one as a limit to their arbitrary interference and as entitled to interfere with them non-arbitrarily. Finally, republican freedom, so understood, is shown to be essential to meeting the demands of healthy amour-propre, thereby bringing Rousseau's political and psychological theories closer together.
-        </div>
-        <div class="pub-links">
-          <a href="#" class="pub-btn">PUBLISHED VERSION</a>
-          <a href="#" class="pub-btn">PHILPEOPLE</a>
+      <div class="content-column">
+        <article class="publication">
+          <h4 class="publication-title">YOUR PAPER TITLE</h4>
+          <p class="publication-meta">Journal / preprint information, year.</p>
+          <p class="publication-abstract">
+            Abstract: Replace this paragraph with a short abstract or description
+            of your paper. This template intentionally uses placeholder text so
+            that you can fill in your own material directly.
+          </p>
+
+          <div class="small-buttons">
+            <a class="small-button" href="#" target="_blank" rel="noopener">Published Version</a>
+            <a class="small-button" href="#" target="_blank" rel="noopener">Preprint</a>
+          </div>
+        </article>
+
+        <article class="publication">
+          <h4 class="publication-title">YOUR SECOND PAPER TITLE</h4>
+          <p class="publication-meta">Journal / preprint information, year.</p>
+          <p class="publication-abstract">
+            Abstract: Replace this paragraph with the abstract or a concise
+            summary. Duplicate this entire article block when you need to add
+            more publications.
+          </p>
+
+          <div class="small-buttons">
+            <a class="small-button" href="#" target="_blank" rel="noopener">Published Version</a>
+            <a class="small-button" href="#" target="_blank" rel="noopener">Preprint</a>
+          </div>
+        </article>
+
+        <div class="wip">
+          <h3 class="section-label">Work in Progress</h3>
+          <ul>
+            <li>YOUR CURRENT PROJECT OR PAPER.</li>
+            <li>YOUR SECOND CURRENT PROJECT OR PAPER.</li>
+          </ul>
         </div>
       </div>
-
-      <div class="pub-item">
-        <div class="pub-title">Rethinking Nietzschean Constitutivism: An Ethics of Value</div>
-        <div class="pub-journal">Journal of Nietzsche Studies, 56 (1): 21-48, 2025.</div>
-        <div class="pub-abstract">
-          Abstract: This article attempts a reconstruction of Nietzsche's metaethics through a constitutivist lens. It examines the relationship between life's meaningfulness and our distinctive way of valuing to offer a value-based version of constitutivism—a value constitutivism, as it were. For Nietzsche, valuing has a characteristic function or aim, namely, to give life meaning; good values are simply those that perform that function well. This version of Nietzschean constitutivism has both interpretive and substantive upshots. Mainly, it clarifies the general normative structure of Nietzsche's axiological theory and helps vindicate the kind of revaluation of values he envisioned—with power playing a central normative role. In sum, constitutivism remains a promising approach to Nietzsche, and Nietzsche's writings continue to offer rich insights into the source and nature of normativity.
-        </div>
-        <div class="pub-links">
-          <a href="#" class="pub-btn">PUBLISHED VERSION</a>
-          <a href="#" class="pub-btn">PHILPEOPLE</a>
-        </div>
-      </div>
-
-      <div class="section-subtitle">WORK IN PROGRESS</div>
-      <ul class="wip-list">
-        <li>- A paper on structural wrongs and political institutions.</li>
-        <li>- A paper on naturalism and constructivism.</li>
-      </ul>
     </section>
 
-    <!-- 3. TEACHING 标签页 -->
-    <section id="teaching" class="tab-content">
-      <div class="page-title">TEACHING</div>
+    <!-- =====================================================
+         TEACHING
+         ===================================================== -->
+    <section id="teaching" class="page inner-page">
+      <h2 class="page-heading">Teaching</h2>
 
-      <div class="teaching-grid">
-        <div class="teaching-text">
-          <p class="teaching-intro">
-            During my time at MIT, I've served as a TA for the following undergraduate courses:
+      <div class="teaching-layout">
+        <div class="teaching-copy">
+          <p>
+            Add a short introductory sentence about your teaching experience.
           </p>
+
           <ul class="teaching-list">
-            <li>- Minds and Machines (for Matthias Michel)</li>
-            <li>- Bioethics (for Robin Scheffler and Michal Masny)</li>
             <li>
-              - Moral Problems (for Sam Berstler)
-              <div class="guest-lecture">Guest Lecture: “The Afterlife”</div>
+              COURSE NAME — role / instructor / semester
             </li>
             <li>
-              - Problems of Philosophy (for Eliot Watkins)
-              <div class="guest-lecture">Guest Lecture: “Moral Luck”</div>
+              COURSE NAME — role / instructor / semester
+              <span class="guest">Guest lecture: “YOUR LECTURE TITLE”</span>
             </li>
-            <li>- Ethics of Computing (for Brad Skow and Manish Raghavan)</li>
+            <li>
+              COURSE NAME — role / instructor / semester
+            </li>
           </ul>
         </div>
 
         <div class="teaching-photo">
-          <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=800&q=80" alt="Teaching">
+          <!-- TEACHING PHOTO -->
+          <img
+            src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1100&q=85"
+            alt="Teaching"
+          />
         </div>
       </div>
     </section>
   </main>
 
-  <footer>
-    © 2025 Julian Perilla. All rights reserved. Designed by G Vergara
+  <footer class="site-footer">
+    © <span id="year"></span> YOUR NAME. All rights reserved.
   </footer>
 
   <script>
-    function openTab(evt, tabName) {
-      const tabContents = document.querySelectorAll('.tab-content');
-      tabContents.forEach(tab => tab.classList.remove('active'));
+    const pageButtons = document.querySelectorAll("[data-page]");
+    const pages = document.querySelectorAll(".page");
 
-      const navBtns = document.querySelectorAll('.nav-btn');
-      navBtns.forEach(btn => btn.classList.remove('active'));
+    function showPage(pageId, updateHash = true) {
+      pages.forEach((page) => {
+        page.classList.toggle("is-active", page.id === pageId);
+      });
 
-      document.getElementById(tabName).classList.add('active');
-      evt.currentTarget.classList.add('active');
+      pageButtons.forEach((button) => {
+        button.classList.toggle("is-active", button.dataset.page === pageId);
+      });
+
+      if (updateHash) {
+        history.replaceState(null, "", pageId === "home" ? "#" : "#" + pageId);
+      }
+
+      window.scrollTo({ top: 0, behavior: "instant" });
     }
+
+    pageButtons.forEach((button) => {
+      button.addEventListener("click", () => showPage(button.dataset.page));
+    });
+
+    const initialPage = location.hash.replace("#", "");
+    if (["research", "teaching"].includes(initialPage)) {
+      showPage(initialPage, false);
+    }
+
+    document.getElementById("year").textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
