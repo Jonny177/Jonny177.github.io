@@ -3,272 +3,335 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>JONNY | 个人主页</title>
+  <title>Jonny | Academic Homepage</title>
   <style>
-    /* 融合复刻样式 */
     :root {
       --bg: #ffffff;
-      --text: #000000;
-      --subtext: #666666;
-      --link: #000000;
-      --border: #f0f0f0;
-      /* 采用类似截图的系统默认现代字体 */
-      --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      --text: #111111;
+      --muted: #666666;
+      --border: #e8e8e8;
+      --card-bg: #fafafa;
+      --accent: #000000;
+      --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
     body {
-      margin: 0;
-      font-family: var(--font-family);
       background: var(--bg);
       color: var(--text);
-      line-height: 1.6;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
+      font-family: var(--font);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
     }
 
-    /* 顶部导航 - 精准对齐 */
-    nav {
-      display: flex;
-      justify-content: center;
-      padding: 30px 0;
-      position: fixed;
-      top: 0;
-      left: 0;
+    /* 顶部简约导航栏 */
+    header {
       width: 100%;
-      background: rgba(255, 255, 255, 0.95);
-      z-index: 1000;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(8px);
+      z-index: 100;
     }
 
-    nav ul {
-      list-style: none;
-      margin: 0;
-      padding: 0;
+    .nav-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 22px 24px;
       display: flex;
-      gap: 35px; /* 导航项间距 */
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand {
+      font-weight: 700;
+      font-size: 1.1rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--text);
     }
 
     nav a {
       text-decoration: none;
-      color: var(--link);
-      text-transform: uppercase; /* 全大写 */
-      font-weight: 400;
-      letter-spacing: 0.15em; /* 增加字母间距，复刻质感 */
-      font-size: 0.9rem;
-    }
-
-    /* 主内容布局 */
-    main {
-      flex: 1;
-      max-width: 1200px; /* 容器宽度以适应两列和图形 */
-      margin: 120px auto 60px auto; /* 顶部留出导航栏空间 */
-      padding: 0 50px;
-      display: grid;
-      grid-template-columns: 1fr 1fr; /* 等宽两列 */
-      gap: 100px; /* 两列间距 */
-      align-items: center; /* 垂直居中对齐 */
-    }
-
-    /* 左侧文本列 */
-    .left-column {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      max-width: 500px;
-    }
-
-    .left-column h1 {
-      font-size: 3.5rem; /* 大号名字 */
-      font-weight: 700;
-      margin: 0 0 25px 0;
+      color: var(--muted);
+      font-size: 0.88rem;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
-      letter-spacing: -0.01em;
+      margin-left: 28px;
+      transition: color 0.2s;
     }
 
-    .left-column p {
-      font-size: 1.15rem;
-      margin: 0 0 20px 0;
-      font-weight: 300;
-      color: #333;
-    }
-
-    .email-link {
-      margin-top: 15px;
-      display: inline-block;
-      text-decoration: none;
+    nav a:hover {
       color: var(--text);
     }
 
-    /* 右侧照片列 */
-    .right-column-container {
+    /* 主容器 */
+    main {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 70px 24px 100px 24px;
+    }
+
+    /* 英雄区：非对称杂志式排版 */
+    .hero {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 60px;
+      align-items: center;
+      margin-bottom: 90px;
+    }
+
+    .hero-text h1 {
+      font-size: 2.6rem;
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+    }
+
+    .hero-title {
+      font-size: 1.05rem;
+      color: var(--muted);
+      margin-bottom: 24px;
+      font-weight: 400;
+    }
+
+    .hero-bio {
+      font-size: 1rem;
+      color: #333333;
+      margin-bottom: 28px;
+    }
+
+    /* 徽章按钮组 */
+    .btn-group {
       display: flex;
-      align-items: center; /* 垂直对齐 */
-      justify-content: flex-end; /* 照片靠右对齐 */
-      width: 100%;
+      flex-wrap: wrap;
+      gap: 12px;
     }
 
-    .right-column {
-      display: flex;
-      flex-direction: row; /* 横向并排照片和图形 */
-      align-items: center; /* 垂直居中对齐照片和图形 */
-      height: 400px; /* SVG 和照片容器高度 */
-      width: 100%;
-      max-width: 600px; /* 增加最大宽度以适应并排 */
-      gap: 50px; /* 照片和图形间距 */
-    }
-
-    .profile-photo {
-      max-width: 250px; /* 照片最大宽度 */
-      max-height: 400px; /* 照片最大高度 */
-      object-fit: cover; /* 裁剪照片 */
-      border-radius: 8px; /* 柔和圆角 */
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); /* 柔和阴影 */
-      display: block;
-    }
-
-    /* 抽象网络图形样式 */
-    .swirly-graphic svg {
-      stroke-width: 1.5;
-    }
-
-    /* 抽象标签样式 */
-    .geo-info {
-      text-align: left;
-      font-weight: 300;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .coords {
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      padding: 7px 16px;
       font-size: 0.85rem;
-      color: var(--subtext);
+      letter-spacing: 0.04em;
+      text-decoration: none;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--text);
+      background: #fff;
+      transition: all 0.2s ease;
     }
 
-    .city {
-      font-size: 1.1rem;
-      font-weight: 600;
-      letter-spacing: 0.2em; /* 增加字母间距 */
+    .btn:hover {
+      border-color: var(--text);
+      background: #000;
+      color: #fff;
+    }
+
+    /* 纯 CSS 肖像卡片（带错位几何边框，摆脱单纯放图片的简陋感） */
+    .photo-wrapper {
+      position: relative;
+      display: flex;
+      justify-content: center;
+    }
+
+    .photo-frame {
+      position: relative;
+      width: 100%;
+      max-width: 320px;
+      aspect-ratio: 4 / 5;
+      background: #eaeaea;
+      border-radius: 6px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+    .photo-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: grayscale(100%); /* 自动黑白化，质感更纯粹 */
+      transition: filter 0.3s;
+    }
+
+    .photo-frame img:hover {
+      filter: grayscale(0%);
+    }
+
+    /* 错位外框装饰线 */
+    .photo-wrapper::after {
+      content: "";
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      width: 100%;
+      max-width: 320px;
+      height: 100%;
+      border: 1px solid #d4d4d4;
+      border-radius: 6px;
+      z-index: -1;
+    }
+
+    /* 分割线与分区 */
+    .section-title {
+      font-size: 0.85rem;
       text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--muted);
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
     }
 
-    /* 页脚 - 精准对齐 */
+    .section-title::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* 三列研究重点矩阵（原创核心模块） */
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-bottom: 70px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 24px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
+    }
+
+    .card h3 {
+      font-size: 1.05rem;
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+
+    .card p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    /* 页脚 */
     footer {
-      text-align: center;
-      padding: 40px 0;
       border-top: 1px solid var(--border);
-      font-size: 0.95rem;
-      font-weight: 300;
-      color: var(--subtext);
+      padding: 30px 24px;
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--muted);
     }
 
-    /* 移动端适配 */
+    /* 移动端响应式 */
     @media (max-width: 768px) {
-      main {
-        grid-template-columns: 1fr; /* 改为单列 */
-        gap: 50px;
-        margin-top: 100px;
-        padding: 0 30px;
+      .hero {
+        grid-template-columns: 1fr;
+        gap: 40px;
       }
-      .left-column h1 {
-        font-size: 2.8rem;
+      .grid-3 {
+        grid-template-columns: 1fr;
       }
-      .right-column {
-        flex-direction: column; /* 改为垂直排列照片和图形 */
-        height: auto;
-        gap: 20px;
+      .photo-wrapper {
+        order: -1; /* 手机端让照片在上面 */
       }
-      .profile-photo {
-        max-width: 200px;
-        max-height: 300px;
+      .photo-frame {
+        max-width: 240px;
       }
-      .swirly-graphic {
-        width: 100%;
-        max-width: 100px; /* 图形居中 */
-        margin: 0 auto;
+      .photo-wrapper::after {
+        display: none;
       }
-      .geo-info {
-        text-align: center;
+      .hero-text h1 {
+        font-size: 2.1rem;
       }
     }
   </style>
 </head>
 <body>
 
-  <!-- 顶部导航栏 -->
-  <nav>
-    <ul>
-      <li><a href="#">HOME</a></li>
-      <li><a href="#">MATHEMATICS</a></li>
-      <li><a href="#">MARGINALIA</a></li>
-      <li><a href="#">CV</a></li>
-    </ul>
-  </nav>
-
-  <!-- 主内容区 -->
-  <main>
-    <!-- 左侧文本：名字与简介 -->
-    <div class="left-column">
-      <h1>JONNY</h1>
-      <p>Hello! I am Jonny, a Master's student in Mathematics at the University of Regensburg.</p>
-      <p>My work explores the intersection of Arithmetic Geometry, Algebraic Geometry, and Algebraic Number Theory.</p>
-      
-      <!-- 邮件图标 -->
-      <a href="mailto:your_email@example.com" class="email-link">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-          <polyline points="22,6 12,13 2,6"></polyline>
-        </svg>
-      </a>
+  <header>
+    <div class="nav-inner">
+      <a href="#" class="brand">JONNY</a>
+      <nav>
+        <a href="#about">About</a>
+        <a href="#research">Research</a>
+        <a href="#cv">CV</a>
+      </nav>
     </div>
+  </header>
 
-    <!-- 右侧图形与照片结合列 -->
-    <div class="right-column-container">
-      <div class="right-column">
-        <!-- 占位照片 -->
-        <img src="https://via.placeholder.com/250x400/000000/ffffff?text=JONNY" alt="JONNY" class="profile-photo">
+  <main>
+    <!-- 英雄区：个人介绍与照片 -->
+    <section class="hero" id="about">
+      <div class="hero-text">
+        <h1>Hi, I'm Jonny.</h1>
+        <div class="hero-title">Graduate Student / Researcher · Mathematics</div>
+        
+        <div class="hero-bio">
+          <p>
+            Welcome to my homepage. My academic interests center around applied mathematics, differential equations, and scientific computing. I focus on developing rigorous mathematical models and understanding their underlying theoretical structures.
+          </p>
+        </div>
 
-        <!-- 垂直错落的抽象网络图形 -->
-        <div class="swirly-graphic-container">
-          <!-- 顶部标签：知识节点 -->
-          <div class="geo-info top-info">
-            <div class="city">KNOWLEDGE NODES</div>
-          </div>
-          
-          <div class="swirly-graphic">
-            <svg viewBox="0 0 100 400" width="100" height="400">
-              <!-- 顶部点 -->
-              <circle cx="50" cy="50" r="3" fill="black" />
-              
-              <!-- 抽象连接线 -->
-              <path d="M50,50 Q60,100 40,150 Q20,200 60,250 Q80,300 50,350" stroke="black" fill="none" stroke-width="1.5" />
-              <path d="M50,50 Q40,100 60,150 Q80,200 40,250 Q20,300 50,350" stroke="black" fill="none" stroke-width="1.5" />
-              
-              <!-- 错落的中间节点 -->
-              <circle cx="30" cy="180" r="2" fill="black" />
-              <circle cx="70" cy="220" r="2" fill="black" />
-              <circle cx="40" cy="280" r="2" fill="black" />
-              <path d="M50,150 L30,180" stroke="black" stroke-width="1" />
-              <path d="M50,250 L70,220" stroke="black" stroke-width="1" />
-              <path d="M40,280 L50,250" stroke="black" stroke-width="1" />
-
-              <!-- 底部点 -->
-              <circle cx="50" cy="350" r="3" fill="black" />
-            </svg>
-          </div>
-          
-          <!-- 底部标签：研究协作 -->
-          <div class="geo-info bottom-info">
-            <div class="city">RESEARCH CONNECTIONS</div>
-          </div>
+        <!-- 极简功能按钮（直接放邮箱、简历和学术主页） -->
+        <div class="btn-group">
+          <a href="mailto:your_email@example.com" class="btn">Email</a>
+          <a href="https://github.com/Jonny177" target="_blank" class="btn">GitHub</a>
+          <a href="#" class="btn">Curriculum Vitae</a>
+          <a href="#" class="btn">Google Scholar</a>
         </div>
       </div>
-    </div>
+
+      <!-- 右侧：高级杂志感黑白相框 -->
+      <div class="photo-wrapper">
+        <div class="photo-frame">
+          <!-- 默认占位图，后续换成你自己的 profile.jpg 即可 -->
+          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80" alt="Jonny Portrait">
+        </div>
+      </div>
+    </section>
+
+    <!-- 原创新增：研究矩阵（既丰富了学术性，又拉开与原版纯文本的差距） -->
+    <section id="research">
+      <div class="section-title">Research Focus & Interests</div>
+      <div class="grid-3">
+        <div class="card">
+          <h3>Mathematical Analysis</h3>
+          <p>Theoretical formulations, functional spaces, and rigorous analytical methods for continuous systems.</p>
+        </div>
+        <div class="card">
+          <h3>Numerical Methods</h3>
+          <p>High-order approximations, error estimations, and efficient scientific algorithms for complex equations.</p>
+        </div>
+        <div class="card">
+          <h3>Computational Modeling</h3>
+          <p>Translating theoretical mathematical frameworks into robust computational implementations.</p>
+        </div>
+      </div>
+    </section>
   </main>
 
-  <!-- 页脚 -->
   <footer>
-    <p>© 2026 Jonny.</p>
+    © 2026 Jonny. Hosted with GitHub Pages.
   </footer>
 
 </body>
