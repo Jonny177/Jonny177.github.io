@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yi Wang (王怡) | 个人主页</title>
+  <style>
+    /* 基础复刻样式 */
+    :root {
+      --bg: #ffffff;
+      --text: #000000;
+      --subtext: #666666;
+      --link: #000000;
+      --border: #f0f0f0;
+      /* 采用类似截图的系统默认现代字体 */
+      --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--font-family);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* 顶部导航 - 精准对齐 */
+    nav {
+      display: flex;
+      justify-content: center;
+      padding: 30px 0;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.95);
+      z-index: 1000;
+    }
+
+    nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      gap: 35px; /* 导航项间距 */
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--link);
+      text-transform: uppercase; /* 全大写 */
+      font-weight: 400;
+      letter-spacing: 0.15em; /* 增加字母间距，复刻质感 */
+      font-size: 0.9rem;
+    }
+
+    /* 主内容布局 */
+    main {
+      flex: 1;
+      max-width: 1200px; /* 增加容器宽度以适应两列 */
+      margin: 120px auto 60px auto; /* 顶部留出导航栏空间 */
+      padding: 0 50px;
+      display: grid;
+      grid-template-columns: 1fr 1fr; /* 等宽两列 */
+      gap: 100px; /* 两列间距 */
+      align-items: center; /* 垂直居中对齐 */
+    }
+
+    /* 左侧文本列 */
+    .left-column {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      max-width: 500px;
+    }
+
+    .left-column h1 {
+      font-size: 3.5rem; /* 大号名字 */
+      font-weight: 700;
+      margin: 0 0 25px 0;
+      text-transform: uppercase;
+      letter-spacing: -0.01em;
+    }
+
+    .left-column p {
+      font-size: 1.15rem;
+      margin: 0 0 20px 0;
+      font-weight: 300;
+      color: #333;
+    }
+
+    .email-link {
+      margin-top: 15px;
+      display: inline-block;
+      text-decoration: none;
+      color: var(--text);
+    }
+
+    /* 右侧地理图形列 - SVG 绘图核心 */
+    .right-column-container {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+    }
+
+    .right-column {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      height: 400px; /* SVG 容器高度 */
+      width: 100%;
+      max-width: 400px;
+    }
+
+    /* 坐标与城市名样式 */
+    .geo-info {
+      text-align: center;
+      font-weight: 300;
+    }
+
+    .coords {
+      font-size: 0.85rem;
+      color: var(--subtext);
+      margin-bottom: 8px;
+    }
+
+    .city {
+      font-size: 1.2rem;
+      font-weight: 600;
+      letter-spacing: 0.2em; /* 城市名增加字母间距 */
+      text-transform: uppercase;
+    }
+
+    /* 复刻流线图 SVG */
+    .swirly-graphic svg {
+      stroke-width: 1.5;
+    }
+
+    /* 页脚 - 精准对齐 */
+    footer {
+      text-align: center;
+      padding: 40px 0;
+      border-top: 1px solid var(--border);
+      font-size: 0.95rem;
+      font-weight: 300;
+      color: var(--subtext);
+    }
+
+    /* 移动端适配 */
+    @media (max-width: 768px) {
+      main {
+        grid-template-columns: 1fr; /* 改为单列 */
+        gap: 50px;
+        margin-top: 100px;
+        padding: 0 30px;
+      }
+      .left-column h1 {
+        font-size: 2.8rem;
+      }
+      .right-column {
+        height: 300px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 顶部导航栏 -->
+  <nav>
+    <ul>
+      <li><a href="#">HOME</a></li>
+      <li><a href="#">MATHEMATICS</a></li>
+      <li><a href="#">MARGINALIA</a></li>
+      <li><a href="#">CV</a></li>
+    </ul>
+  </nav>
+
+  <!-- 主内容区 -->
+  <main>
+    <!-- 左侧文本：名字与简介 -->
+    <div class="left-column">
+      <h1>YI WANG</h1>
+      <p>I am Yi Wang (易怡), a Master's student in Mathematics at the University of Regensburg.</p>
+      <p>My research interests lie in Arithmetic Geometry, Algebraic Geometry, and Algebraic Number Theory.</p>
+      
+      <!-- 邮件图标 -->
+      <a href="mailto:your_email@example.com" class="email-link">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+          <polyline points="22,6 12,13 2,6"></polyline>
+        </svg>
+      </a>
+    </div>
+
+    <!-- 右侧图形：地理坐标与流线图 -->
+    <div class="right-column-container">
+      <div class="right-column">
+        <!-- 顶部城市：雷根斯堡 -->
+        <div class="geo-info top-info">
+          <div class="coords">49°00'06" N · 12°05'47" E</div>
+          <div class="city">REGENSBURG</div>
+        </div>
+        
+        <!-- SVG 流线图 - 手写复刻版 -->
+        <div class="swirly-graphic">
+          <svg viewBox="0 0 100 400" width="100" height="400">
+            <!-- 顶部点 -->
+            <circle cx="50" cy="50" r="3" fill="black" />
+            
+            <!-- 两条流线 - 使用平滑的贝塞尔曲线复刻 -->
+            <path d="M50,50 Q60,100 40,150 Q20,200 60,250 Q80,300 50,350" stroke="black" fill="none" stroke-width="1.5" />
+            <path d="M50,50 Q40,100 60,150 Q80,200 40,250 Q20,300 50,350" stroke="black" fill="none" stroke-width="1.5" />
+            
+            <!-- 底部点 -->
+            <circle cx="50" cy="350" r="3" fill="black" />
+          </svg>
+        </div>
+        
+        <!-- 底部城市：杭州 -->
+        <div class="geo-info bottom-info">
+          <div class="city">HANGZHOU</div>
+          <div class="coords">30°18'55" N · 120°21'52" E</div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- 页脚 -->
+  <footer>
+    <p>© 2026 Yi Wang.</p>
+  </footer>
+
+</body>
+</html>
