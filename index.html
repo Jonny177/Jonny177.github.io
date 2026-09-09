@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Jonny (lkwang) | 个人主页</title>
+  <title>JONNY | 个人主页</title>
   <style>
-    /* 基础复刻样式 */
+    /* 融合复刻样式 */
     :root {
       --bg: #ffffff;
       --text: #000000;
@@ -60,7 +60,7 @@
     /* 主内容布局 */
     main {
       flex: 1;
-      max-width: 1200px; /* 增加容器宽度以适应两列 */
+      max-width: 1200px; /* 容器宽度以适应两列和图形 */
       margin: 120px auto 60px auto; /* 顶部留出导航栏空间 */
       padding: 0 50px;
       display: grid;
@@ -99,45 +99,57 @@
       color: var(--text);
     }
 
-    /* 右侧地理图形列 - SVG 绘图核心 */
+    /* 右侧照片列 */
     .right-column-container {
       display: flex;
-      justify-content: center;
+      align-items: center; /* 垂直对齐 */
+      justify-content: flex-end; /* 照片靠右对齐 */
       width: 100%;
     }
 
     .right-column {
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: space-between;
-      height: 400px; /* SVG 容器高度 */
+      flex-direction: row; /* 横向并排照片和图形 */
+      align-items: center; /* 垂直居中对齐照片和图形 */
+      height: 400px; /* SVG 和照片容器高度 */
       width: 100%;
-      max-width: 400px;
+      max-width: 600px; /* 增加最大宽度以适应并排 */
+      gap: 50px; /* 照片和图形间距 */
     }
 
-    /* 坐标与城市名样式 */
+    .profile-photo {
+      max-width: 250px; /* 照片最大宽度 */
+      max-height: 400px; /* 照片最大高度 */
+      object-fit: cover; /* 裁剪照片 */
+      border-radius: 8px; /* 柔和圆角 */
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); /* 柔和阴影 */
+      display: block;
+    }
+
+    /* 抽象网络图形样式 */
+    .swirly-graphic svg {
+      stroke-width: 1.5;
+    }
+
+    /* 抽象标签样式 */
     .geo-info {
-      text-align: center;
+      text-align: left;
       font-weight: 300;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
     }
 
     .coords {
       font-size: 0.85rem;
       color: var(--subtext);
-      margin-bottom: 8px;
     }
 
     .city {
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       font-weight: 600;
-      letter-spacing: 0.2em; /* 城市名增加字母间距 */
+      letter-spacing: 0.2em; /* 增加字母间距 */
       text-transform: uppercase;
-    }
-
-    /* 复刻流线图 SVG */
-    .swirly-graphic svg {
-      stroke-width: 1.5;
     }
 
     /* 页脚 - 精准对齐 */
@@ -162,7 +174,21 @@
         font-size: 2.8rem;
       }
       .right-column {
-        height: 300px;
+        flex-direction: column; /* 改为垂直排列照片和图形 */
+        height: auto;
+        gap: 20px;
+      }
+      .profile-photo {
+        max-width: 200px;
+        max-height: 300px;
+      }
+      .swirly-graphic {
+        width: 100%;
+        max-width: 100px; /* 图形居中 */
+        margin: 0 auto;
+      }
+      .geo-info {
+        text-align: center;
       }
     }
   </style>
@@ -183,9 +209,9 @@
   <main>
     <!-- 左侧文本：名字与简介 -->
     <div class="left-column">
-      <h1>Jonny</h1>
-      <p>I am Jonny (易怡), a Master's student in Mathematics at the University of Regensburg.</p>
-      <p>My research interests lie in Arithmetic Geometry, Algebraic Geometry, and Algebraic Number Theory.</p>
+      <h1>JONNY</h1>
+      <p>Hello! I am Jonny, a Master's student in Mathematics at the University of Regensburg.</p>
+      <p>My work explores the intersection of Arithmetic Geometry, Algebraic Geometry, and Algebraic Number Theory.</p>
       
       <!-- 邮件图标 -->
       <a href="mailto:your_email@example.com" class="email-link">
@@ -196,34 +222,45 @@
       </a>
     </div>
 
-    <!-- 右侧图形：地理坐标与流线图 -->
+    <!-- 右侧图形与照片结合列 -->
     <div class="right-column-container">
       <div class="right-column">
-        <!-- 顶部城市：雷根斯堡 -->
-        <div class="geo-info top-info">
-          <div class="coords">49°00'06" N · 12°05'47" E</div>
-          <div class="city">REGENSBURG</div>
-        </div>
-        
-        <!-- SVG 流线图 - 手写复刻版 -->
-        <div class="swirly-graphic">
-          <svg viewBox="0 0 100 400" width="100" height="400">
-            <!-- 顶部点 -->
-            <circle cx="50" cy="50" r="3" fill="black" />
-            
-            <!-- 两条流线 - 使用平滑的贝塞尔曲线复刻 -->
-            <path d="M50,50 Q60,100 40,150 Q20,200 60,250 Q80,300 50,350" stroke="black" fill="none" stroke-width="1.5" />
-            <path d="M50,50 Q40,100 60,150 Q80,200 40,250 Q20,300 50,350" stroke="black" fill="none" stroke-width="1.5" />
-            
-            <!-- 底部点 -->
-            <circle cx="50" cy="350" r="3" fill="black" />
-          </svg>
-        </div>
-        
-        <!-- 底部城市：杭州 -->
-        <div class="geo-info bottom-info">
-          <div class="city">HANGZHOU</div>
-          <div class="coords">30°18'55" N · 120°21'52" E</div>
+        <!-- 占位照片 -->
+        <img src="https://via.placeholder.com/250x400/000000/ffffff?text=JONNY" alt="JONNY" class="profile-photo">
+
+        <!-- 垂直错落的抽象网络图形 -->
+        <div class="swirly-graphic-container">
+          <!-- 顶部标签：知识节点 -->
+          <div class="geo-info top-info">
+            <div class="city">KNOWLEDGE NODES</div>
+          </div>
+          
+          <div class="swirly-graphic">
+            <svg viewBox="0 0 100 400" width="100" height="400">
+              <!-- 顶部点 -->
+              <circle cx="50" cy="50" r="3" fill="black" />
+              
+              <!-- 抽象连接线 -->
+              <path d="M50,50 Q60,100 40,150 Q20,200 60,250 Q80,300 50,350" stroke="black" fill="none" stroke-width="1.5" />
+              <path d="M50,50 Q40,100 60,150 Q80,200 40,250 Q20,300 50,350" stroke="black" fill="none" stroke-width="1.5" />
+              
+              <!-- 错落的中间节点 -->
+              <circle cx="30" cy="180" r="2" fill="black" />
+              <circle cx="70" cy="220" r="2" fill="black" />
+              <circle cx="40" cy="280" r="2" fill="black" />
+              <path d="M50,150 L30,180" stroke="black" stroke-width="1" />
+              <path d="M50,250 L70,220" stroke="black" stroke-width="1" />
+              <path d="M40,280 L50,250" stroke="black" stroke-width="1" />
+
+              <!-- 底部点 -->
+              <circle cx="50" cy="350" r="3" fill="black" />
+            </svg>
+          </div>
+          
+          <!-- 底部标签：研究协作 -->
+          <div class="geo-info bottom-info">
+            <div class="city">RESEARCH CONNECTIONS</div>
+          </div>
         </div>
       </div>
     </div>
