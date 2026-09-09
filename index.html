@@ -7,32 +7,33 @@
   <title>YOUR NAME</title>
 
   <!--
-    ============================
-    你之后最常改的地方
-    ============================
-    1. 搜索 YOUR NAME / YOUR EMAIL / YOUR ...
+    ==========================================================
+    修改指南
+    ==========================================================
+    1. 搜索 YOUR NAME / YOUR EMAIL / YOUR UNIVERSITY 等占位词
     2. 首页照片：搜索 HOME PHOTO
     3. Research 图片：搜索 RESEARCH PHOTO
     4. Teaching 图片：搜索 TEACHING PHOTO
-    5. CV：把 cv.pdf 放在 index.html 同目录即可
+    5. 把 cv.pdf 放在 index.html 同目录，即可使用顶部 CV
   -->
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@600;700&family=Montserrat:wght@300;400;500;600&display=swap"
     rel="stylesheet"
   >
 
   <style>
     :root {
-      --page-bg: #ffffff;
-      --text: #171717;
-      --body-text: #6f6f6f;
-      --line: #dedede;
-      --line-dark: #bdbdbd;
-      --content-width: 1180px;
-      --font: "Montserrat", Arial, Helvetica, sans-serif;
+      --bg: #fff;
+      --heading: #474747;
+      --text: #555;
+      --muted: #777;
+      --light: #aaa;
+      --content-width: 1152px;
+      --font-body: "Montserrat", Arial, Helvetica, sans-serif;
+      --font-name: "Josefin Sans", "Montserrat", Arial, sans-serif;
     }
 
     * {
@@ -45,15 +46,15 @@
 
     body {
       margin: 0;
-      background: var(--page-bg);
+      background: var(--bg);
       color: var(--text);
-      font-family: var(--font);
+      font-family: var(--font-body);
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
     }
 
-    button,
-    a {
+    a,
+    button {
       font: inherit;
     }
 
@@ -63,72 +64,104 @@
     }
 
     /* =========================================================
-       HEADER / NAV
-       ========================================================= */
+       TOP NAVIGATION
+       =========================================================
+       关键修正：
+       - 整个导航相对于 viewport 真正水平居中
+       - 不再使用上一版的左对齐容器
+       - 参考 YieWang 的 Montserrat + 大字距 + 纯文字
+    */
+
+    .header-spacer {
+      height: 98px;
+    }
 
     .site-header {
-      width: min(var(--content-width), calc(100% - 64px));
-      margin: 0 auto;
-      padding-top: 34px;
-      position: relative;
-      z-index: 10;
+      position: fixed;
+      inset: 0 0 auto 0;
+      z-index: 50;
+      background: rgba(255,255,255,.97);
+      padding-top: 30px;
     }
 
     .nav {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .nav-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
       display: flex;
       align-items: center;
-      gap: 13px;
-      width: max-content;
+      justify-content: center;
+      gap: 44px;
     }
 
     .nav-link {
-      appearance: none;
-      border: 1px solid var(--line);
-      background: #fff;
-      color: #232323;
-      min-width: 96px;
-      height: 39px;
-      padding: 0 18px;
+      position: relative;
       display: inline-flex;
-      align-items: center;
+      flex-direction: column;
       justify-content: center;
+      align-items: center;
+      padding: 8px 4px;
+      border: 0;
+      background: transparent;
+      color: #737373;
       text-decoration: none;
       text-transform: uppercase;
-      letter-spacing: 0.24em;
-      font-size: 10px;
+      letter-spacing: .25rem;
+      font-family: var(--font-body);
+      font-size: 12px;
+      line-height: 1;
       font-weight: 500;
       cursor: pointer;
-      transition:
-        border-color 160ms ease,
-        color 160ms ease,
-        background-color 160ms ease;
+      transition: color .18s ease;
+      white-space: nowrap;
     }
 
     .nav-link:hover,
     .nav-link.is-active {
-      border-color: #9e9e9e;
-      color: #000;
+      color: #111;
+    }
+
+    .nav-link.is-active {
+      font-weight: 600;
+    }
+
+    /* Prevent width shift when active item becomes bold */
+    .nav-link::after {
+      content: attr(data-label);
+      height: 0;
+      overflow: hidden;
+      visibility: hidden;
+      font-weight: 600;
+      pointer-events: none;
+      user-select: none;
     }
 
     /* =========================================================
-       PAGE SHELL
+       GLOBAL PAGE SHELL
        ========================================================= */
 
     .page {
       display: none;
-      width: min(var(--content-width), calc(100% - 64px));
+      width: min(var(--content-width), calc(100% - 128px));
       margin: 0 auto;
     }
 
     .page.is-active {
       display: block;
-      animation: pageIn 260ms ease;
+      animation: fadeIn .28s ease;
     }
 
-    @keyframes pageIn {
+    @keyframes fadeIn {
       from {
         opacity: 0;
-        transform: translateY(4px);
+        transform: translateY(3px);
       }
       to {
         opacity: 1;
@@ -141,9 +174,8 @@
        ========================================================= */
 
     .home-page {
-      min-height: calc(100vh - 74px);
-      padding: 20px 0 54px;
-      display: none;
+      min-height: calc(100vh - 98px);
+      padding: 10px 0 52px;
       align-items: center;
     }
 
@@ -154,72 +186,73 @@
     .hero {
       width: 100%;
       display: grid;
-      grid-template-columns: minmax(360px, 0.92fr) minmax(470px, 1.08fr);
-      gap: 74px;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 72px;
       align-items: center;
     }
 
     .hero-copy {
-      max-width: 490px;
-      padding-left: 18px;
+      max-width: 500px;
+      padding-top: 18px;
     }
 
     .hero-title {
-      margin: 0 0 39px;
-      font-size: clamp(34px, 3.15vw, 51px);
-      line-height: 1.08;
-      font-weight: 500;
-      letter-spacing: 0.23em;
+      margin: 0 0 34px;
+      color: var(--heading);
+      font-family: var(--font-name);
+      font-size: clamp(48px, 4vw, 60px);
+      font-weight: 700;
+      line-height: 1.12;
+      letter-spacing: .58rem;
       text-transform: uppercase;
-      white-space: nowrap;
     }
 
     .hero-copy p {
-      max-width: 440px;
-      margin: 0 0 20px;
-      color: var(--body-text);
-      font-size: 13px;
-      line-height: 1.85;
+      max-width: 490px;
+      margin: 0 0 18px;
+      color: #545454;
+      font-family: var(--font-body);
+      font-size: 16px;
       font-weight: 300;
-      letter-spacing: 0.005em;
+      line-height: 1.82;
+      letter-spacing: .018rem;
     }
 
     .hero-email {
-      margin-top: 29px;
+      margin-top: 25px;
     }
 
     .mail-link {
-      width: 27px;
-      height: 27px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      color: #595959;
+      width: 29px;
+      height: 29px;
+      color: #636363;
       text-decoration: none;
-      transition: color 160ms ease, transform 160ms ease;
+      transition: color .18s ease;
     }
 
     .mail-link:hover {
       color: #111;
-      transform: translateY(-1px);
     }
 
     .mail-link svg {
-      width: 22px;
-      height: 22px;
+      width: 24px;
+      height: 24px;
     }
 
     .hero-photo {
-      justify-self: end;
       width: 100%;
-      max-width: 520px;
+      display: flex;
+      justify-content: flex-end;
     }
 
     .hero-photo-frame {
-      width: 100%;
-      aspect-ratio: 0.79 / 1;
+      width: min(100%, 485px);
+      aspect-ratio: .79 / 1;
       overflow: hidden;
-      background: #efefef;
+      background: #eee;
     }
 
     .hero-photo-frame img {
@@ -227,37 +260,38 @@
       height: 100%;
       object-fit: cover;
 
-      /* HOME PHOTO
-         换成你自己的图片后，如果人物太偏上/偏下，在这里调：
-         object-position: 50% 40%;
+      /* HOME PHOTO:
+         换成你自己的照片后，可用 object-position 调人物位置。
+         例：object-position: 50% 38%;
       */
       object-position: 50% 50%;
     }
 
     /* =========================================================
-       INNER PAGES
+       RESEARCH / TEACHING
        ========================================================= */
 
     .inner-page {
-      padding: 71px 0 86px;
+      padding: 62px 0 90px;
     }
 
     .page-heading {
-      margin: 0 0 46px;
+      margin: 0 0 43px;
+      color: #444;
       text-align: center;
       font-size: 13px;
       line-height: 1;
-      font-weight: 500;
-      letter-spacing: 0.28em;
+      font-weight: 600;
+      letter-spacing: .28rem;
       text-transform: uppercase;
     }
 
     .wide-image {
-      width: min(875px, 100%);
+      width: min(900px, 100%);
       margin: 0 auto 58px;
-      aspect-ratio: 3.18 / 1;
+      aspect-ratio: 3.15 / 1;
       overflow: hidden;
-      background: #ededed;
+      background: #eee;
     }
 
     .wide-image img {
@@ -269,83 +303,73 @@
 
     .section-label {
       margin: 0 0 34px;
+      color: #555;
       text-align: center;
-      font-size: 12px;
+      font-size: 12.5px;
       line-height: 1;
-      font-weight: 500;
-      letter-spacing: 0.27em;
+      font-weight: 600;
+      letter-spacing: .27rem;
       text-transform: uppercase;
     }
 
     .content-column {
-      width: min(835px, 100%);
+      width: min(850px, 100%);
       margin: 0 auto;
     }
 
     .publication {
-      padding: 0 0 43px;
-      margin: 0 0 43px;
-      border-bottom: 1px solid #ececec;
-    }
-
-    .publication:last-of-type {
-      margin-bottom: 51px;
+      padding-bottom: 40px;
+      margin-bottom: 40px;
+      border-bottom: 1px solid #ededed;
     }
 
     .publication-title {
-      margin: 0 0 8px;
-      color: #222;
-      font-size: 14px;
+      margin: 0 0 7px;
+      color: #333;
+      font-size: 15px;
       line-height: 1.55;
       font-weight: 500;
     }
 
     .publication-meta {
-      margin: 0 0 18px;
-      color: var(--body-text);
-      font-size: 12.5px;
+      margin: 0 0 16px;
+      color: #777;
+      font-size: 13.5px;
       line-height: 1.7;
-      font-style: italic;
       font-weight: 300;
+      font-style: italic;
     }
 
     .publication-abstract {
-      margin: 0 0 21px;
-      color: #626262;
-      font-size: 12.5px;
-      line-height: 1.88;
+      margin: 0 0 20px;
+      color: #5c5c5c;
+      font-size: 13.5px;
+      line-height: 1.85;
       font-weight: 300;
     }
 
     .small-buttons {
       display: flex;
       flex-wrap: wrap;
-      gap: 11px;
+      gap: 19px;
     }
 
     .small-button {
-      min-height: 34px;
-      padding: 0 16px;
-      border: 1px solid var(--line);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      color: #333;
+      color: #666;
       text-decoration: none;
       text-transform: uppercase;
-      font-size: 9px;
+      letter-spacing: .18rem;
+      font-size: 10px;
       font-weight: 500;
-      letter-spacing: 0.2em;
-      transition: border-color 160ms ease, color 160ms ease;
+      transition: color .18s ease;
     }
 
     .small-button:hover {
-      border-color: #9c9c9c;
-      color: #000;
+      color: #111;
     }
 
     .wip {
-      margin-top: 50px;
+      margin-top: 46px;
     }
 
     .wip ul,
@@ -358,10 +382,10 @@
     .wip li,
     .teaching-list li {
       position: relative;
-      padding-left: 15px;
+      padding-left: 17px;
       margin-bottom: 12px;
-      color: var(--body-text);
-      font-size: 12.5px;
+      color: #666;
+      font-size: 13.5px;
       line-height: 1.75;
       font-weight: 300;
     }
@@ -374,23 +398,19 @@
       top: 0;
     }
 
-    /* =========================================================
-       TEACHING
-       ========================================================= */
-
     .teaching-layout {
-      width: min(890px, 100%);
+      width: min(900px, 100%);
       margin: 0 auto;
       display: grid;
-      grid-template-columns: 1.08fr 0.92fr;
-      gap: 68px;
+      grid-template-columns: 1.08fr .92fr;
+      gap: 70px;
       align-items: start;
     }
 
     .teaching-copy p {
-      margin: 0 0 29px;
-      color: var(--body-text);
-      font-size: 12.5px;
+      margin: 0 0 28px;
+      color: #5c5c5c;
+      font-size: 14px;
       line-height: 1.82;
       font-weight: 300;
     }
@@ -398,14 +418,14 @@
     .guest {
       display: block;
       margin-top: 5px;
-      color: #8b8b8b;
-      font-size: 11.5px;
+      color: #888;
+      font-size: 12.5px;
     }
 
     .teaching-photo {
-      aspect-ratio: 0.76 / 1;
+      aspect-ratio: .76 / 1;
       overflow: hidden;
-      background: #ededed;
+      background: #eee;
     }
 
     .teaching-photo img {
@@ -422,50 +442,49 @@
     .site-footer {
       width: min(var(--content-width), calc(100% - 64px));
       margin: 0 auto;
-      padding: 0 0 35px;
+      padding: 0 0 32px;
+      color: #aaa;
       text-align: center;
-      color: #a0a0a0;
-      font-size: 9.5px;
+      font-size: 10px;
       line-height: 1.6;
-      letter-spacing: 0.08em;
+      letter-spacing: .06rem;
     }
 
     /* =========================================================
        RESPONSIVE
        ========================================================= */
 
-    @media (max-width: 980px) {
+    @media (max-width: 1000px) {
+      .page {
+        width: min(100% - 70px, var(--content-width));
+      }
+
       .hero {
-        grid-template-columns: 1fr 1fr;
-        gap: 42px;
+        gap: 48px;
       }
 
       .hero-title {
-        font-size: 34px;
-        letter-spacing: 0.18em;
+        font-size: 46px;
+        letter-spacing: .45rem;
       }
 
-      .hero-copy {
-        padding-left: 0;
+      .hero-copy p {
+        font-size: 15px;
       }
     }
 
     @media (max-width: 760px) {
-      .site-header,
-      .page,
-      .site-footer {
-        width: min(100% - 36px, var(--content-width));
+      .header-spacer {
+        height: 64px;
       }
 
       .site-header {
-        padding-top: 22px;
+        padding-top: 14px;
       }
 
       .nav {
-        width: 100%;
-        gap: 8px;
         overflow-x: auto;
-        padding-bottom: 4px;
+        justify-content: flex-start;
         scrollbar-width: none;
       }
 
@@ -473,80 +492,113 @@
         display: none;
       }
 
+      .nav-list {
+        width: max-content;
+        min-width: 100%;
+        padding: 0 18px;
+        gap: 22px;
+      }
+
       .nav-link {
-        min-width: auto;
-        height: 36px;
-        padding: 0 13px;
-        font-size: 9px;
-        letter-spacing: 0.18em;
-        flex: 0 0 auto;
+        font-size: 10px;
+        letter-spacing: .12rem;
+        padding: 8px 2px;
+      }
+
+      .page {
+        width: min(100% - 38px, var(--content-width));
       }
 
       .home-page {
         min-height: auto;
-        padding: 58px 0 75px;
+        padding: 50px 0 72px;
       }
 
       .hero {
         grid-template-columns: 1fr;
-        gap: 42px;
+        gap: 44px;
       }
 
       .hero-copy {
         max-width: 100%;
+        padding-top: 0;
       }
 
       .hero-title {
-        white-space: normal;
-        font-size: 36px;
+        margin-bottom: 28px;
+        font-size: 42px;
+        letter-spacing: .38rem;
+      }
+
+      .hero-copy p {
+        max-width: 100%;
+        font-size: 14px;
       }
 
       .hero-photo {
-        justify-self: start;
-        max-width: 520px;
+        justify-content: flex-start;
+      }
+
+      .hero-photo-frame {
+        width: min(100%, 480px);
       }
 
       .inner-page {
-        padding-top: 58px;
+        padding-top: 52px;
       }
 
       .teaching-layout {
         grid-template-columns: 1fr;
-        gap: 40px;
+        gap: 42px;
       }
 
       .teaching-photo {
-        max-width: 440px;
+        width: min(100%, 430px);
       }
     }
 
     @media (max-width: 430px) {
-      .hero-title {
-        font-size: 30px;
-        letter-spacing: 0.15em;
+      .nav-list {
+        gap: 15px;
       }
 
-      .hero-copy p,
-      .publication-abstract,
-      .publication-meta,
-      .wip li,
-      .teaching-copy p,
-      .teaching-list li {
-        font-size: 12px;
+      .hero-title {
+        font-size: 35px;
+        letter-spacing: .28rem;
+      }
+
+      .hero-copy p {
+        font-size: 13.5px;
       }
     }
   </style>
 </head>
 
 <body>
+  <div class="header-spacer" aria-hidden="true"></div>
+
   <header class="site-header">
     <nav class="nav" aria-label="Primary navigation">
-      <button class="nav-link is-active" data-page="home" type="button">Home</button>
-      <button class="nav-link" data-page="research" type="button">Research</button>
-      <button class="nav-link" data-page="teaching" type="button">Teaching</button>
-
-      <!-- 把 cv.pdf 放在 index.html 同一目录；或者把 href 改成你的在线 CV 链接 -->
-      <a class="nav-link" href="cv.pdf" target="_blank" rel="noopener">CV</a>
+      <ul class="nav-list">
+        <li>
+          <button class="nav-link is-active" type="button" data-page="home" data-label="Home">
+            Home
+          </button>
+        </li>
+        <li>
+          <button class="nav-link" type="button" data-page="research" data-label="Research">
+            Research
+          </button>
+        </li>
+        <li>
+          <button class="nav-link" type="button" data-page="teaching" data-label="Teaching">
+            Teaching
+          </button>
+        </li>
+        <li>
+          <a class="nav-link" href="cv.pdf" target="_blank" rel="noopener" data-label="CV">CV</a>
+        </li>
+      </ul>
     </nav>
   </header>
 
@@ -560,14 +612,15 @@
           <h1 class="hero-title">YOUR NAME</h1>
 
           <p>
-            YOUR SHORT ACADEMIC INTRODUCTION. For example: I am a PhD candidate
-            in the Department of Mathematics at YOUR UNIVERSITY. My research
-            interests include YOUR RESEARCH AREAS.
+            I am YOUR NAME, a PhD candidate in the Department of Mathematics at
+            YOUR UNIVERSITY. My research interests lie in partial differential
+            equations, free boundary problems, and geometric analysis.
           </p>
 
           <p>
-            Add one more short paragraph here for your previous education,
-            current position, research group, or other information.
+            Add your second short paragraph here. You can write about your
+            previous education, current research group, advisor, or broader
+            mathematical interests.
           </p>
 
           <div class="hero-email">
@@ -577,18 +630,8 @@
               aria-label="Email"
               title="Email"
             >
-              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path
-                  d="M3.75 5.75h16.5v12.5H3.75V5.75Z"
-                  stroke="currentColor"
-                  stroke-width="1.35"
-                />
-                <path
-                  d="m4.4 6.45 7.6 6.1 7.6-6.1"
-                  stroke="currentColor"
-                  stroke-width="1.35"
-                  stroke-linejoin="round"
-                />
+              <svg viewBox="0 0 40 40" fill="currentColor" aria-hidden="true">
+                <path d="M37.5,12.6l-17.5,11.9L2.5,12.6c-.2-.1-.3-.2-.5-.2v-2.7c0-.8.6-1.4,1.4-1.4h33.1c.8,0,1.4.6,1.4,1.4v2.7c-.2,0-.4,0-.5.2ZM19.5,26.3c.2.1.3.2.5.2s.4,0,.5-.2l17.5-11.9v16.9c0,.8-.6,1.4-1.4,1.4H3.4c-.8,0-1.4-.6-1.4-1.4V14.4l17.5,11.9Z"/>
               </svg>
             </a>
           </div>
@@ -596,7 +639,7 @@
 
         <div class="hero-photo">
           <div class="hero-photo-frame">
-            <!-- HOME PHOTO：把 src 换成你自己的照片文件，例如 images/me.jpg -->
+            <!-- HOME PHOTO：把 src 换成 images/me.jpg 即可 -->
             <img
               src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=1200&q=88"
               alt="Portrait"
@@ -627,9 +670,8 @@
           <h4 class="publication-title">YOUR PAPER TITLE</h4>
           <p class="publication-meta">Journal / preprint information, year.</p>
           <p class="publication-abstract">
-            Abstract: Replace this paragraph with a short abstract or description
-            of your paper. This template intentionally uses placeholder text so
-            that you can fill in your own material directly.
+            Abstract: Replace this paragraph with the abstract or short
+            description of your paper.
           </p>
 
           <div class="small-buttons">
@@ -642,9 +684,8 @@
           <h4 class="publication-title">YOUR SECOND PAPER TITLE</h4>
           <p class="publication-meta">Journal / preprint information, year.</p>
           <p class="publication-abstract">
-            Abstract: Replace this paragraph with the abstract or a concise
-            summary. Duplicate this entire article block when you need to add
-            more publications.
+            Abstract: Duplicate this article block whenever you want to add
+            another publication.
           </p>
 
           <div class="small-buttons">
@@ -676,16 +717,12 @@
           </p>
 
           <ul class="teaching-list">
-            <li>
-              COURSE NAME — role / instructor / semester
-            </li>
+            <li>COURSE NAME — role / instructor / semester</li>
             <li>
               COURSE NAME — role / instructor / semester
               <span class="guest">Guest lecture: “YOUR LECTURE TITLE”</span>
             </li>
-            <li>
-              COURSE NAME — role / instructor / semester
-            </li>
+            <li>COURSE NAME — role / instructor / semester</li>
           </ul>
         </div>
 
